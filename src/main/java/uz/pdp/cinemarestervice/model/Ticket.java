@@ -3,7 +3,7 @@ package uz.pdp.cinemarestervice.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.pdp.cinemarestervice.template.AbsEntity;
+import uz.pdp.cinemarestervice.model.enums.TicketStatus;
 
 import javax.persistence.*;
 
@@ -11,14 +11,27 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity(name = "tickets")
-public class Ticket extends AbsEntity {
+public class Ticket {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer movie_session_id;
-    private Integer seat_id;
+
     @OneToOne
-    private Attachment qr_code;
-    private double price;
-    private Integer cart_id;
+    private MovieSession movieSession;
+
+    @OneToOne
+    private Seat seat;
+
+    @OneToOne
+    private Attachment qrCode;
+
+    @Column(nullable = false)
+    private Double price;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private TicketStatus status;
+
+    @OneToOne
+    private Cart cart;
 }

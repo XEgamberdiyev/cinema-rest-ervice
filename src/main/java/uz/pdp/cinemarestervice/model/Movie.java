@@ -3,7 +3,6 @@ package uz.pdp.cinemarestervice.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.pdp.cinemarestervice.template.AbsEntity;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,32 +10,39 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity (name = "movies")
-public class Movie extends AbsEntity {
+@Entity
+public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(nullable = false, unique = true)
     private String title;
+
+    @Column(nullable = false)
     private String description;
-    private int durationInMinutes;
-    @OneToOne
-    private Attachment coverImage;
 
-    @OneToOne
-    private Attachment trailerVideo;
+    @Column(nullable = false)
+    private Integer durationInMinutes;
 
-    @ManyToMany
+    @OneToMany
+    private List<Attachment> cover_image;
+
+    @OneToMany
+    private List<Attachment> trailer_video;
+
+    @OneToMany
     private List<Director> directors;
 
     @ManyToMany
     private List<Genre> genres;
 
-    private double minPrice;
+    @Column(nullable = false)
+    private Double min_price;
 
     @OneToOne
     private Distributor distributor;
 
-    private double distributorShareInPercent;
-    @ManyToMany
-    private List<Actor>actors;
+    @Column(nullable = false)
+    private Double distributor_share_in_percent;
 }

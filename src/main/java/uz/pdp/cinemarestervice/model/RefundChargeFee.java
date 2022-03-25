@@ -3,23 +3,22 @@ package uz.pdp.cinemarestervice.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.pdp.cinemarestervice.template.AbsEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.sql.Time;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity (name = "refund_charge_fees")
-public class RefundChargeFee extends AbsEntity {
+@Entity(name = "refund_charge_fees")
+public class RefundChargeFee {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Time interval_in_minutes;
+    @Column(nullable = false)
+    private Integer intervalMinutes;
 
-    private double percentage;
+    @Column(nullable = false)
+    private Double percentage;
+
 }

@@ -3,7 +3,6 @@ package uz.pdp.cinemarestervice.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.pdp.cinemarestervice.template.AbsEntity;
 
 import javax.persistence.*;
 
@@ -11,17 +10,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity(name = "seats")
-public class Seat extends AbsEntity {
+public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false)
     private Integer number;
 
     @ManyToOne
     private Row row;
 
-    @OneToOne
+    @ManyToOne
     private PriceCategory priceCategory;
-
 }

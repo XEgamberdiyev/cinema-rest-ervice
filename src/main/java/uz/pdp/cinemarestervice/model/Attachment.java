@@ -2,24 +2,31 @@ package uz.pdp.cinemarestervice.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import uz.pdp.cinemarestervice.template.AbsEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity(name = "attachments")
-public class Attachment extends AbsEntity {
+public class Attachment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    private String fileName;
+    @Column(nullable = false)
     private String contentType;
+
+    @Column(nullable = false)
     private Long size;
 
+    @Column(nullable = false)
+    private String originalName;
+
+    public Attachment(String name, long size, String contentType) {
+        this.originalName = name;
+        this.size = size;
+        this.contentType = contentType;
+    }
 }

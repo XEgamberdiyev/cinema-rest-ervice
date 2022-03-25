@@ -3,7 +3,6 @@ package uz.pdp.cinemarestervice.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.pdp.cinemarestervice.template.AbsEntity;
 
 import javax.persistence.*;
 
@@ -11,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity(name = "movie_sessions")
-public class MovieSession extends AbsEntity {
+public class MovieSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -19,7 +18,7 @@ public class MovieSession extends AbsEntity {
     @ManyToOne
     private Movie movie;
 
-    @ManyToOne
-    private Hall hall;
-
+    @Column(nullable = false)
+    private Boolean is_active;
 }
+

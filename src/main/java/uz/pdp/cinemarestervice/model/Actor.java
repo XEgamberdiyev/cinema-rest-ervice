@@ -3,16 +3,14 @@ package uz.pdp.cinemarestervice.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.pdp.cinemarestervice.template.AbsEntity;
 
 import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity (name = "actors")
-public class Actor extends AbsEntity {
-
+@Entity(name = "actors")
+public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,8 +18,15 @@ public class Actor extends AbsEntity {
     @Column(nullable = false)
     private String fullName;
 
+    @Column(nullable = false)
+    private String bio;
+
     @OneToOne
-    private Attachment photo;
+    private Attachment attachment;
 
-
+    public Actor(String fullName, String bio, Attachment attachment) {
+        this.fullName = fullName;
+        this.bio = bio;
+        this.attachment = attachment;
+    }
 }

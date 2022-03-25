@@ -1,23 +1,35 @@
 package uz.pdp.cinemarestervice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.pdp.cinemarestervice.template.AbsEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity(name = "halls")
-public class Hall extends AbsEntity {
+public class Hall {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
-    private Integer vipAdditionalFeeInPercent;
+    @Column(nullable = false)
+    private Double vip_additional_fee_in_percent;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "hall", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Row> rowList;
+
+    public Hall(String name, Double vip_additional_fee_in_percent, List<Row> rowList) {
+        this.name = name;
+        this.vip_additional_fee_in_percent = vip_additional_fee_in_percent;
+        this.rowList = rowList;
+    }
 }

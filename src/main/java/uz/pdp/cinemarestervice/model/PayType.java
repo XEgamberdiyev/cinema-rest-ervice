@@ -3,22 +3,21 @@ package uz.pdp.cinemarestervice.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.pdp.cinemarestervice.template.AbsEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity (name = "pay_types")
-public class PayType extends AbsEntity {
+@Entity(name = "pay_types")
+public class PayType {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(nullable = false,unique = true)
     private String name;
 
-    private double commission_fee_in_percent;
+    @Column(nullable = false)
+    private Double commission_fee_in_percent;
 }
